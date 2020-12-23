@@ -15,7 +15,10 @@ import (
 func main() {
 	// database.Open()
 	// database.DBClient.Insert()
+
 	db := database.DBClient.DB
+	db.AutoMigrate(&database.BaseModel{})
+
 	// json := `{"age":  27, "name": "Yan"}`
 	json1 := `{
 	"name": "Pasta",
@@ -27,26 +30,24 @@ func main() {
 }`
 	json2 := `{"kuo": "chaoYi"}`
 
-	jb := new(database.BaseModelSoftDelete)
+	jb := new(database.BaseModel)
 	jb.JsonStore.RawMessage = []byte(json2)
 
-	db.AutoMigrate(&database.BaseModelSoftDelete{})
-	db.Create(&database.BaseModelSoftDelete{
-		BaseModel: database.BaseModel{
-			ID:        uuid.UUID{},
-			CreatedAt: time.Time{},
-			UpdatedAt: nil,
-			BaseModelJsonb: database.BaseModelJsonb{
-				JsonStore: postgres.Jsonb{
-					RawMessage: []byte(json1),
-				},
+	db.AutoMigrate(&database.BaseModel{})
+	db.Create(&database.BaseModel{
+		ID:                  uuid.UUID{},
+		CreatedAt:           time.Time{},
+		UpdatedAt:           nil,
+		BaseModelSoftDelete: database.BaseModelSoftDelete{},
+		BaseModelJsonb:      database.BaseModelJsonb{
+			JsonStore: postgres.Jsonb{
+				RawMessage: []byte(json1),
 			},
 		},
-		DeletedAt: nil,
 	})
 
 	db.Create(&jb)
-	var result database.BaseModelSoftDelete
+	var result database.BaseModel
 	db.First(&result)
 	log.Printf("Println this a objcet: %s", &result)
 

@@ -15,6 +15,7 @@ type BaseModel struct {
 	ID        uuid.UUID  `gorm:"type:uuid;primary_key"`
 	CreatedAt time.Time  `gorm:"index;not null;default:CURRENT_TIMESTAMP"` // (My|Postgre)SQL
 	UpdatedAt *time.Time `gorm:"index"`
+	BaseModelSoftDelete
 	BaseModelJsonb
 }
 
@@ -22,7 +23,7 @@ type BaseModel struct {
 // hold, usually. This struct also defines the fields for GORM triggers to
 // detect the entity should soft delete
 type BaseModelSoftDelete struct {
-	BaseModel
+	// BaseModel
 	DeletedAt *time.Time `sql:"index"`
 }
 
