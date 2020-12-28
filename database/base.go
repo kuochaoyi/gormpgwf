@@ -41,8 +41,9 @@ func (base *BaseModel) BeforeCreate(tx *gorm.DB) error {
 	return err
 }
 
-// PostgreSQL - JSONB
+// PostgreSQL - JSONB + Serial ex. 20200123000001
 type BaseModelJsonb struct {
 	// State string `gorm:"type:JSONB NOT NULL DEFAULT '{}'"`
 	JsonStore postgres.Jsonb `gorm:"type:jsonb"`
+	SerialID  string         `gorm:"type:varchar(14)"`
 }

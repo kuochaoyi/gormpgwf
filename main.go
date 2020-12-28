@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"goland_gorm/database"
 	_ "goland_gorm/database"
+	"goland_gorm/utils"
 	"log"
 	"os"
 	"time"
@@ -33,16 +34,19 @@ func main() {
 	jb := new(database.BaseModel)
 	jb.JsonStore.RawMessage = []byte(json2)
 
+	serialNewly := new(utils.SerialPgHandler).SetSerial("base_models")
+
 	db.AutoMigrate(&database.BaseModel{})
 	db.Create(&database.BaseModel{
 		ID:                  uuid.UUID{},
 		CreatedAt:           time.Time{},
 		UpdatedAt:           nil,
 		BaseModelSoftDelete: database.BaseModelSoftDelete{},
-		BaseModelJsonb:      database.BaseModelJsonb{
+		BaseModelJsonb: database.BaseModelJsonb{
 			JsonStore: postgres.Jsonb{
 				RawMessage: []byte(json1),
 			},
+			SerialID: serialNewly,
 		},
 	})
 
@@ -71,4 +75,8 @@ func main() {
 			fmt.Println("Inserted: " + STATE)
 			fmt.Println("Selected: " + result.State)
 		}*/
+
+	log.Printf("%s \n", new(utils.SerialPgHandler).SetSerial("base_models"))
+	log.Printf("%s", new(utils.SerialPgHandler).Serial("base_models"))
+
 }

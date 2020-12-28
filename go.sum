@@ -1,4 +1,6 @@
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
+github.com/Lofanmi/chinese-calendar-golang v0.0.0-20200229180428-6d37a682e748 h1:aMzo0TqXCJbKsoEt4eNYh8e3j19zkK8jQn181b9TBYA=
+github.com/Lofanmi/chinese-calendar-golang v0.0.0-20200229180428-6d37a682e748/go.mod h1:06TvyVS9oGmUmhpHTs8PBtXv9oowxIrBZkX+Kmr/1SU=
 github.com/PuerkitoBio/goquery v1.5.1/go.mod h1:GsLWisAFVj4WgDibEWF4pvYnkVQBpKBKeU+7zCJoLcc=
 github.com/andybalholm/cascadia v1.1.0/go.mod h1:GsXiBklL0woXo1j/WYWtSYYC4ouU9PqHO0sqidkEA4Y=
 github.com/cockroachdb/apd v1.1.0 h1:3LFP3629v+1aKXU5Q37mxmRxX/pIu1nijXydLShEq5I=
@@ -87,6 +89,8 @@ github.com/kr/pty v1.1.1/go.mod h1:pFQYn66WHrOpPYNljwOMqo10TkYh1fy3cYio2l3bCsQ=
 github.com/kr/pty v1.1.8/go.mod h1:O1sed60cT9XZ5uDucP5qwvh+TE3NnUj51EiZO/lmSfw=
 github.com/kr/text v0.1.0 h1:45sCR5RtlFHMR4UwH9sdQ5TC8v0qDQCHnXt+kaKSTVE=
 github.com/kr/text v0.1.0/go.mod h1:4Jbv+DJW3UT/LiOwJeYQe1efqtUx/iVham/4vfdArNI=
+github.com/kuochaoyi/chinese-calendar-golang v0.0.0-20201224160123-4d46473db908 h1:1xvfdEFvccVCDwRyYHMkKkvF0i5wTvy653yA1z0ASO8=
+github.com/kuochaoyi/chinese-calendar-golang v0.0.0-20201224160123-4d46473db908/go.mod h1:vviHvh3NuWuJC8JN6udFrtkhw0NckGYImd8YkGB+lQ4=
 github.com/lib/pq v1.0.0/go.mod h1:5WUZQaWbwv1U+lTReE5YruASi9Al49XbQIvNi/34Woo=
 github.com/lib/pq v1.1.0/go.mod h1:5WUZQaWbwv1U+lTReE5YruASi9Al49XbQIvNi/34Woo=
 github.com/lib/pq v1.1.1/go.mod h1:5WUZQaWbwv1U+lTReE5YruASi9Al49XbQIvNi/34Woo=
