@@ -10,24 +10,26 @@ import (
 )
 
 const (
-	first_serial = 1
-	layout_data  = "20060102"
-	layout_digit = "6"
+	serial_add    = 1
+	layout_data   = "20060102"
+	LAYOUT_DIGITS = "000000"
+	layout_digit  = "6"
 )
 
 type SerialGenerator interface {
-	SetSerial() string              // Set
-	Serial(tableName string) string // Get newly serial
+	SetSerial(table string) string // Set
+	Serial(table string) string    // Get newly serial
 }
 
 type SerialPgHandler struct {
 }
 
+//
 func (h *SerialPgHandler) SetSerial(table string) string {
 	latestID := h.Serial(table)
 
 	i, _ := strconv.Atoi(latestID[8:14])
-	return GetTodaySerial() + FormatSerial(i+first_serial)
+	return MakeSerial(i + serial_add)
 }
 
 // Get SerialID == today max
@@ -47,14 +49,14 @@ func (h *SerialPgHandler) Serial(table string) string {
 		select max(created_at) from base_models
 			 );
 	*/
-	row := db.Table(table).Where("created_at = ( \nselect max(created_at) from base_models\n\t )").Select("serial_id").Row()
+	whereqy := "created_at = ( \nselect max(created_at) from " + table + "\n\t )"
+	row := db.Table(table).Where(whereqy).Select("serial_id").Row()
 	row.Scan(&latestID)
 	if latestID != "" {
 		return latestID
 	}
 
-	latestID = GetTodaySerial() + FormatSerial(0)
-	return latestID
+	return GetTodaySerial() + LAYOUT_DIGITS
 }
 
 // Get today to serial. ex.20200123
@@ -65,4 +67,8 @@ func GetTodaySerial() string {
 // Default: 6 digit => 000001
 func FormatSerial(s int) string {
 	return fmt.Sprintf("%06d", s)
+}
+
+func MakeSerial(i int) string {
+	return GetTodaySerial() + FormatSerial(i)
 }
