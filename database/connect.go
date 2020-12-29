@@ -33,11 +33,6 @@ type dbClient struct {
 	DB *gorm.DB
 }
 
-func (d *dbClient) Insert() {
-	// d.DB.Create(&postgresql{})
-	return
-}
-
 func init() {
 	c := config()
 	// var dsn = "host=localhost user=gorm password=gorm dbname=gorm port=9920 sslmode=disable TimeZone=Asia/Shanghai"
@@ -54,13 +49,6 @@ func init() {
 	DBClient = &dbClient{DB: db}
 	log.Printf("gorm DBClient: %+v", DBClient)
 }
-
-/*
-func Open()  {
-	log.Printf("database.Open(): dns=%s", dsn)
-	log.Printf("Open(): gorm db.Name(): %s", Db.Name())
-}
-*/
 
 func config() *postgresql {
 	pg := new(postgresql)
