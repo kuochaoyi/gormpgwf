@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"goland_gorm/database"
 	_ "goland_gorm/database"
 	"goland_gorm/utils"
@@ -11,6 +12,7 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/jinzhu/gorm/dialects/postgres"
+	"github.com/kuochaoyi/chinese-calendar-golang/calendar"
 )
 
 func main() {
@@ -78,5 +80,13 @@ func main() {
 
 	log.Printf("%s \n", new(utils.SerialPgHandler).SetSerial("base_models"))
 	log.Printf("%s", new(utils.SerialPgHandler).Serial("base_models"))
+
+	d := calendar.ByTimestamp(time.Now().Unix())
+
+	// bytes, _ := c.ToJSON()
+	bytes1, _ := d.ToJSON()
+
+	// fmt.Println(string(bytes))
+	fmt.Println(string(bytes1))
 
 }
