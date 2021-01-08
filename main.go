@@ -11,17 +11,24 @@ import (
 	"github.com/kuochaoyi/gormpgwf/database"
 	_ "github.com/kuochaoyi/gormpgwf/database"
 
-	"github.com/google/uuid"
+	// "github.com/google/uuid"
 	"github.com/jinzhu/gorm/dialects/postgres"
 	"github.com/kuochaoyi/chinese-calendar-golang/calendar"
 )
+
+type Demo struct {
+	database.BaseModel
+	database.BaseModelSoftDelete
+	database.BaseModelJsonb
+	database.BaseModelSerialID
+}
 
 func main() {
 	// database.Open()
 	// database.DBClient.Insert()
 
 	db := database.DBClient.DB
-	db.AutoMigrate(&database.BaseModel{})
+	db.AutoMigrate(&Demo{})
 
 	// json := `{"age":  27, "name": "Yan"}`
 	json1 := `{
@@ -34,27 +41,27 @@ func main() {
 }`
 	json2 := `{"kuo": "chaoYi"}`
 
-	jb := new(database.BaseModel)
+	jb := new(Demo)
 	jb.JsonStore.RawMessage = []byte(json2)
 
-	serialNewly := new(utils.SerialPgHandler).SetSerial("base_models")
+	serialNewly := new(utils.SerialPgHandler).SetSerial("demo")
 
-	db.AutoMigrate(&database.BaseModel{})
-	db.Create(&database.BaseModel{
-		ID:                  uuid.UUID{},
-		CreatedAt:           time.Time{},
-		UpdatedAt:           nil,
+	// db.AutoMigrate(&database.BaseModel{})
+	db.Create(&Demo{
+		BaseModel:           database.BaseModel{},
 		BaseModelSoftDelete: database.BaseModelSoftDelete{},
 		BaseModelJsonb: database.BaseModelJsonb{
 			JsonStore: postgres.Jsonb{
 				RawMessage: []byte(json1),
 			},
+		},
+		BaseModelSerialID: database.BaseModelSerialID{
 			SerialID: serialNewly,
 		},
 	})
 
 	db.Create(&jb)
-	var result database.BaseModel
+	var result Demo
 	db.First(&result)
 	log.Printf("Println this a objcet: %s", &result)
 

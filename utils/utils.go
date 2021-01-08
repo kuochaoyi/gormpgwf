@@ -14,7 +14,7 @@ const (
 	serial_add    = 1
 	layout_data   = "20060102"
 	LAYOUT_DIGITS = "000000"
-	layout_digit  = "6"
+	// layout_digit  = "6"
 )
 
 type SerialGenerator interface {
