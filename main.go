@@ -3,12 +3,13 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"goland_gorm/database"
 	"goland_gorm/utils"
-	_ "gormpgwf/database"
 	"log"
 	"os"
 	"time"
+
+	"github.com/kuochaoyi/gormpgwf/database"
+	_ "github.com/kuochaoyi/gormpgwf/database"
 
 	"github.com/google/uuid"
 	"github.com/jinzhu/gorm/dialects/postgres"
