@@ -3,7 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"goland_gorm/utils"
+	"github.com/kuochaoyi/gormpgwf/utils"
 	"log"
 	"os"
 	"time"
