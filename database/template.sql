@@ -1,9 +1,10 @@
 /*
 
 */
-CREATE TABLE template (
-    uuid_id         UUID            DEFAULT gen_random_uuid (),
-    data            JSONB,
+CREATE TABLE template
+(
+    uuid_id      UUID        DEFAULT gen_random_uuid(),
+    data         JSONB,
 
 /* somethings
     qty             int,            --  quantity
@@ -16,14 +17,14 @@ CREATE TABLE template (
  */
 
 -- logs gorm: *time.Time
-    created_date    DATE            DEFAULT CURRENT_DATE,
+    created_date DATE        DEFAULT CURRENT_DATE,
 --  created_at    TIMESTAMP       DEFAULT now(),
-    created_at      TIMESTAMPTZ     DEFAULT now(),
-    updated_at      TIMESTAMPTZ,
-    deleted_at      TIMESTAMPTZ,
+    created_at   TIMESTAMPTZ DEFAULT now(),
+    updated_at   TIMESTAMPTZ,
+    deleted_at   TIMESTAMPTZ,
 --     is_deleted      BOOL            DEFAULT false,
 
     PRIMARY KEY (uuid_id)
-    );
+);
 
 -- INSERT INTO template(data) VALUES ('{"title": "Sleeping Beauties", "genres": ["Fiction", "Thriller", "Horror"], "published": false}');

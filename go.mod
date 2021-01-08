@@ -1,4 +1,4 @@
-module goland_gorm
+module github.com/kuochaoyi/gormpgwf
 
 go 1.15
 

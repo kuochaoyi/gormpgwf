@@ -2,11 +2,12 @@ package utils
 
 import (
 	"fmt"
-	"goland_gorm/database"
 	"strconv"
 	"time"
 
-	_ "goland_gorm/database"
+	"github.com/kuochaoyi/gormpgwf/database"
+
+	_ "github.com/kuochaoyi/gormpgwf/database"
 )
 
 const (

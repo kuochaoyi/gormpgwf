@@ -1,9 +1,10 @@
 package utils
 
 import (
-	"goland_gorm/database"
-	_ "goland_gorm/database"
 	"testing"
+
+	"github.com/kuochaoyi/gormpgwf/database"
+	_ "github.com/kuochaoyi/gormpgwf/database"
 )
 
 func TestGetTodaySerial(t *testing.T) {
