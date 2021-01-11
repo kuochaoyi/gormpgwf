@@ -53,7 +53,7 @@ func init() {
 func config() *postgresql {
 	pg := new(postgresql)
 
-	yamlFile, _ := ioutil.ReadFile("database/postgresql.yaml")
+	yamlFile, _ := ioutil.ReadFile("config/postgresql.yaml")
 	err := yaml.Unmarshal(yamlFile, &pg)
 	if err != nil {
 		log.Fatalf("Unmarshal: %s", err)
