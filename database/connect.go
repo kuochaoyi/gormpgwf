@@ -18,25 +18,33 @@ import (
 	"gorm.io/gorm"
 )
 
-var dsn string
+// var dsn string
 var DBClient *dbClient
-
-type postgresql struct {
-	Username string `yaml:"username"`
-	Password string `yaml:"password"`
-	Host     string `yaml:"host"`
-	Port     string `yaml:"port"`
-	DbName   string `yaml:"dbname"`
-}
 
 type dbClient struct {
 	DB *gorm.DB
 }
 
+type pgDBInfo struct {
+	// Datatype string `yaml:"datatype"`
+	Hostname string `yaml:"hostname"`
+	Database string `yaml:"database"`
+	Username string `yaml:"username"`
+	Password string `yaml:"password"`
+	Port     string `yaml:"port"`
+	// Prefix   string `yaml:"prefix"`
+}
+
+/*type pgSQL struct {
+	Debug   pgDBInfo
+	Test    pgDBInfo
+	Release pgDBInfo
+}*/
+
 func init() {
 	c := config()
 	// var dsn = "host=localhost user=gorm password=gorm dbname=gorm port=9920 sslmode=disable TimeZone=Asia/Shanghai"
-	dsn = "host=" + c.Host + " user=" + c.Username + " password=" + c.Password + " dbname=" + c.DbName + " port=" + c.Port + " sslmode=disable TimeZone=Asia/Taipei"
+	dsn := "host=" + c.Hostname + " user=" + c.Username + " password=" + c.Password + " dbname=" + c.Database + " port=" + c.Port + " sslmode=disable TimeZone=Asia/Taipei"
 	log.Printf("database.init(): dns=> %s", dsn)
 
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
@@ -50,8 +58,8 @@ func init() {
 	log.Printf("gorm DBClient: %+v", DBClient)
 }
 
-func config() *postgresql {
-	pg := new(postgresql)
+func config() *pgDBInfo {
+	pg := new(pgDBInfo)
 
 	yamlFile, _ := ioutil.ReadFile("config/postgresql.yaml")
 	err := yaml.Unmarshal(yamlFile, &pg)
@@ -59,7 +67,6 @@ func config() *postgresql {
 		log.Fatalf("Unmarshal: %s", err)
 	}
 	log.Printf("database.config(): pg.Username= %s", pg.Username)
-
 	return pg
 }
 
