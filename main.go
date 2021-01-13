@@ -2,18 +2,10 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
-	"github.com/kuochaoyi/gormpgwf/utils"
 	"log"
-	"os"
-	"time"
 
 	"github.com/kuochaoyi/gormpgwf/database"
 	_ "github.com/kuochaoyi/gormpgwf/database"
-
-	// "github.com/google/uuid"
-	"github.com/jinzhu/gorm/dialects/postgres"
-	"github.com/kuochaoyi/chinese-calendar-golang/calendar"
 )
 
 type Demo struct {
@@ -23,6 +15,18 @@ type Demo struct {
 	database.BaseModelSerialID
 }
 
+type ClassRoom struct {
+	database.BaseModel
+	database.BaseModelSoftDelete
+	State string `gorm:"type:jsonb", sql:"type:JSONB::JSONB"`
+	database.BaseModelSerialID
+}
+
+type j struct {
+age int
+name string
+}
+
 func main() {
 	// database.Open()
 	// database.DBClient.Insert()
@@ -30,45 +34,63 @@ func main() {
 	db := database.DBClient.DB
 	db.AutoMigrate(&Demo{})
 
-	// json := `{"age":  27, "name": "Yan"}`
-	json1 := `{
+	db.Debug().AutoMigrate(&ClassRoom{})
+
+	// JSON to insert
+	STATE := `{"uses-kica": false, "hide-assessments-intro": true, "most-recent-grade-skew": 1.5}`
+
+	classRoom := ClassRoom{State: STATE}
+	db.Save(&classRoom)
+
+	// Select the row
+	var result ClassRoom
+	db.First(&result)
+
+	if result.State == STATE {
+		log.Println("SUCCESS: Selected JSON == inserted JSON")
+	} else {
+		log.Println("FAILED: Selected JSON != inserted JSON")
+		log.Println("Inserted: " + STATE)
+		log.Println("Selected: " + result.State)
+	}
+
+	json3 := []byte(`{"age":  27, "name": "Yan"}`)
+
+	a := &j{}
+	err := json.Unmarshal(json3, &a)
+	if err != nil {
+		log.Fatalln("")
+	}
+
+/*	json1 := []byte(`{
 	"name": "Pasta",
 		"ingredients": ["Flour", "Eggs", "Salt", "Water"],
-"organic": true,
-"dimensions": {
-"weight": 500.00
-}
-}`
-	json2 := `{"kuo": "chaoYi"}`
+			"organic": true,
+			"dimensions": {
+			"weight": 500.00
+			}
+		}`)
 
-	jb := new(Demo)
-	jb.JsonStore.RawMessage = []byte(json2)
+	json2 := []byte(`{"kuo": "chaoYi"}`)*/
 
-	serialNewly := new(utils.SerialPgHandler).SetSerial("demo")
+	//jb := new(Demo)
+	jb2 := &Demo{}
+	jb2.SetJsonbStore(&a)
+
+	// serialNewly := new(utils.SerialPgHandler).SetSerial("demo")
 
 	// db.AutoMigrate(&database.BaseModel{})
-	db.Create(&Demo{
-		BaseModel:           database.BaseModel{},
-		BaseModelSoftDelete: database.BaseModelSoftDelete{},
-		BaseModelJsonb: database.BaseModelJsonb{
-			JsonStore: postgres.Jsonb{
-				RawMessage: []byte(json1),
-			},
-		},
-		BaseModelSerialID: database.BaseModelSerialID{
-			SerialID: serialNewly,
-		},
-	})
 
-	db.Create(&jb)
+	db.Create(&jb2)
+/*
 	var result Demo
 	db.First(&result)
 	log.Printf("Println this a objcet: %s", &result)
 
-	a := &result.JsonStore
+	a := &result.
 	b, _ := json.Marshal(a)
 	log.Printf("json.Marshal(): %s", a) // []byte
-	os.Stdout.Write(b)                  // json
+	os.Stdout.Write(b)                  // json*/
 
 	/*	layout := "2006-01-02T15:04:05.000Z"
 		str := &result.CreatedAt
@@ -86,7 +108,7 @@ func main() {
 			fmt.Println("Selected: " + result.State)
 		}*/
 
-	log.Printf("%s \n", new(utils.SerialPgHandler).SetSerial("base_models"))
+/*	log.Printf("%s \n", new(utils.SerialPgHandler).SetSerial("base_models"))
 	log.Printf("%s", new(utils.SerialPgHandler).Serial("base_models"))
 
 	d := calendar.ByTimestamp(time.Now().Unix())
@@ -95,6 +117,6 @@ func main() {
 	bytes1, _ := d.ToJSON()
 
 	// fmt.Println(string(bytes))
-	fmt.Println(string(bytes1))
+	fmt.Println(string(bytes1))*/
 
 }
