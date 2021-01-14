@@ -1,5 +1,5 @@
 hostname: localhost
 username: chaoyi
 password: 123456
-database: postgres
+database: psi_dev
 port: 5432
