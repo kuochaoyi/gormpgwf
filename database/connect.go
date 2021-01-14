@@ -18,7 +18,10 @@ import (
 	"gorm.io/gorm"
 )
 
+<<<<<<< HEAD
 // var dsn string
+=======
+>>>>>>> develop
 var DBClient *dbClient
 
 type dbClient struct {
@@ -44,7 +47,11 @@ type pgDBInfo struct {
 func init() {
 	c := config()
 	// var dsn = "host=localhost user=gorm password=gorm dbname=gorm port=9920 sslmode=disable TimeZone=Asia/Shanghai"
+<<<<<<< HEAD
 	dsn := "host=" + c.Hostname + " user=" + c.Username + " password=" + c.Password + " dbname=" + c.Database + " port=" + c.Port + " sslmode=disable TimeZone=Asia/Taipei"
+=======
+	dsn := "host=" + c.Host + " user=" + c.Username + " password=" + c.Password + " dbname=" + c.DbName + " port=" + c.Port + " sslmode=disable TimeZone=Asia/Taipei"
+>>>>>>> develop
 	log.Printf("database.init(): dns=> %s", dsn)
 
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})

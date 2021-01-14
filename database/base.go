@@ -5,7 +5,6 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/jinzhu/gorm/dialects/postgres"
 	"gorm.io/gorm"
 )
 
@@ -38,12 +37,6 @@ func (base *BaseModel) BeforeCreate(tx *gorm.DB) error {
 
 	tx.Statement.SetColumn("ID", id.String())
 	return err
-}
-
-// PostgreSQL - JSONB
-type BaseModelJsonb struct {
-	// State string `gorm:"type:JSONB NOT NULL DEFAULT '{}'"`
-	JsonStore postgres.Jsonb `gorm:"type:jsonb"`
 }
 
 // Serial id = date + 6 digital ex. 20200123000001
