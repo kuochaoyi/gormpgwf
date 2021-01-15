@@ -23,8 +23,8 @@ type ClassRoom struct {
 }
 
 type j struct {
-age int
-name string
+	age  int
+	name string
 }
 
 func main() {
@@ -62,16 +62,16 @@ func main() {
 		log.Fatalln("")
 	}
 
-/*	json1 := []byte(`{
-	"name": "Pasta",
-		"ingredients": ["Flour", "Eggs", "Salt", "Water"],
-			"organic": true,
-			"dimensions": {
-			"weight": 500.00
-			}
-		}`)
+	/*	json1 := []byte(`{
+		"name": "Pasta",
+			"ingredients": ["Flour", "Eggs", "Salt", "Water"],
+				"organic": true,
+				"dimensions": {
+				"weight": 500.00
+				}
+			}`)
 
-	json2 := []byte(`{"kuo": "chaoYi"}`)*/
+		json2 := []byte(`{"kuo": "chaoYi"}`)*/
 
 	//jb := new(Demo)
 	jb2 := &Demo{}
@@ -82,15 +82,15 @@ func main() {
 	// db.AutoMigrate(&database.BaseModel{})
 
 	db.Create(&jb2)
-/*
-	var result Demo
-	db.First(&result)
-	log.Printf("Println this a objcet: %s", &result)
+	/*
+		var result Demo
+		db.First(&result)
+		log.Printf("Println this a objcet: %s", &result)
 
-	a := &result.
-	b, _ := json.Marshal(a)
-	log.Printf("json.Marshal(): %s", a) // []byte
-	os.Stdout.Write(b)                  // json*/
+		a := &result.
+		b, _ := json.Marshal(a)
+		log.Printf("json.Marshal(): %s", a) // []byte
+		os.Stdout.Write(b)                  // json*/
 
 	/*	layout := "2006-01-02T15:04:05.000Z"
 		str := &result.CreatedAt
@@ -108,15 +108,15 @@ func main() {
 			fmt.Println("Selected: " + result.State)
 		}*/
 
-/*	log.Printf("%s \n", new(utils.SerialPgHandler).SetSerial("base_models"))
-	log.Printf("%s", new(utils.SerialPgHandler).Serial("base_models"))
+	/*	log.Printf("%s \n", new(utils.SerialPgHandler).SetSerial("base_models"))
+		log.Printf("%s", new(utils.SerialPgHandler).Serial("base_models"))
 
-	d := calendar.ByTimestamp(time.Now().Unix())
+		d := calendar.ByTimestamp(time.Now().Unix())
 
-	// bytes, _ := c.ToJSON()
-	bytes1, _ := d.ToJSON()
+		// bytes, _ := c.ToJSON()
+		bytes1, _ := d.ToJSON()
 
-	// fmt.Println(string(bytes))
-	fmt.Println(string(bytes1))*/
+		// fmt.Println(string(bytes))
+		fmt.Println(string(bytes1))*/
 
 }

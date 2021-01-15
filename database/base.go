@@ -11,9 +11,9 @@ import (
 // BaseModel defines the common columns that all db structs should hold, usually
 // db structs based on this have no soft delete
 type BaseModel struct {
-	ID        uuid.UUID  `gorm:"type:uuid;primary_key"`
-	CreatedAt time.Time  `gorm:"index;not null;default:CURRENT_TIMESTAMP"` // (My|Postgre)SQL
-	UpdatedAt *time.Time `gorm:"index"`
+	ID        uuid.UUID `gorm:"type:uuid;primary_key"`
+	CreatedAt time.Time `gorm:"index;not null;default:CURRENT_TIMESTAMP"` // (My|Postgre)SQL
+	UpdatedAt time.Time `gorm:"index"`
 	BaseModelSoftDelete
 }
 
@@ -22,7 +22,7 @@ type BaseModel struct {
 // detect the entity should soft delete
 type BaseModelSoftDelete struct {
 	// BaseModel
-	DeletedAt *time.Time `sql:"index"`
+	DeletedAt gorm.DeletedAt `gorm:"index"`
 }
 
 // BeforeCreate will set a UUID rather than numeric ID.
@@ -41,5 +41,5 @@ func (base *BaseModel) BeforeCreate(tx *gorm.DB) error {
 
 // Serial id = date + 6 digital ex. 20200123000001
 type BaseModelSerialID struct {
-	SerialID  string         `gorm:"type:varchar(14)"`
+	SerialID string `gorm:"type:varchar(14)"`
 }
