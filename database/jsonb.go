@@ -24,10 +24,10 @@ func (u *BaseModelJsonb) GetJsonbStore() (jsonBytes []byte) {
 		log.Panicln(err)
 	}
 
-/*	err = json.Unmarshal(v.([]byte), &pm)
-	if err != nil {
-		log.Panicln(err)
-	}*/
+	/*	err = json.Unmarshal(v.([]byte), &pm)
+		if err != nil {
+			log.Panicln(err)
+		}*/
 
 	jb := v.([]byte)
 	return jb
