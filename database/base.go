@@ -13,7 +13,7 @@ import (
 type BaseModel struct {
 	// `gorm:"type:uuid;primaryKey;default:uuid_generate_v4()"`
 	ID        uuid.UUID  `gorm:"type:uuid;primary_key"`
-	CreatedAt time.Time  `gorm:"column:create_at;default:null" json:"created_at"` // (My|Postgre)SQL
+	CreatedAt time.Time  `gorm:"column:created_at;default:null" json:"created_at"` // (My|Postgre)SQL
 	UpdatedAt *time.Time `gorm:"column:updated_at;default:null" json:"updated_at"`
 	BaseModelSoftDelete
 }
