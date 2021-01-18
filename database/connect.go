@@ -43,7 +43,7 @@ type pgDBInfo struct {
 func init() {
 	c := config()
 	// var dsn = "host=localhost user=gorm password=gorm dbname=gorm port=9920 sslmode=disable TimeZone=Asia/Shanghai"
-	dsn := "host=" + c.Hostname + " user=" + c.Username + " password=" + c.Password + " dbname=" + c.Database + " port=" + c.Port + " sslmode=disable TimeZone=Asia/Taipei"
+	dsn := "host=" + c.Hostname + " user=" + c.Username + " password=" + c.Password + " dbname=" + c.Database + " port=" + c.Port + " sslmode=disable TimeZone=Asia/Taipei parseTime=true"
 	log.Printf("database.init(): dns=> %s", dsn)
 
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
