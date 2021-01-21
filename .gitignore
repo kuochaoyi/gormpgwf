@@ -1,6 +1,6 @@
 
 ### Example user template template
-### Example user template
+config/postgresql.yaml
 
 # IntelliJ project files
 .idea
