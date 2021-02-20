@@ -1,0 +1,100 @@
+{
+  "canvas": {
+    "width": 2000,
+    "height": 2000,
+    "scrollTop": 0,
+    "scrollLeft": 0,
+    "show": {
+      "tableComment": true,
+      "columnComment": true,
+      "columnDataType": true,
+      "columnDefault": true,
+      "columnAutoIncrement": false,
+      "columnPrimaryKey": true,
+      "columnUnique": false,
+      "columnNotNull": true,
+      "relationship": true
+    },
+    "database": "PostgreSQL",
+    "databaseName": "",
+    "canvasType": "ERD",
+    "language": "GraphQL",
+    "tableCase": "pascalCase",
+    "columnCase": "camelCase",
+    "setting": {
+      "relationshipDataTypeSync": true,
+      "columnOrder": [
+        "columnName",
+        "columnDataType",
+        "columnNotNull",
+        "columnUnique",
+        "columnAutoIncrement",
+        "columnDefault",
+        "columnComment"
+      ]
+    }
+  },
+  "table": {
+    "tables": [
+      {
+        "name": "psi_p_logs",
+        "comment": "",
+        "columns": [
+          {
+            "name": "uuid_id",
+            "comment": "",
+            "dataType": "uuid",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": true,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": true,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            },
+            "id": "7c88bbf7-7b44-6381-ae13-3bed886a37c8"
+          }
+        ],
+        "ui": {
+          "active": true,
+          "left": 194,
+          "top": 163,
+          "zIndex": 192,
+          "widthName": 64,
+          "widthComment": 60
+        },
+        "id": "4c3a87a7-3fb5-fd6c-d6d4-bb46b477419d"
+      },
+      {
+        "name": "psi_p_stock",
+        "comment": "",
+        "columns": [],
+        "ui": {
+          "active": false,
+          "left": 329,
+          "top": 300,
+          "zIndex": 157,
+          "widthName": 71,
+          "widthComment": 60
+        },
+        "id": "7267e9ad-3911-ad39-4ee1-ec9a8022b4a1"
+      }
+    ],
+    "indexes": []
+  },
+  "memo": {
+    "memos": []
+  },
+  "relationship": {
+    "relationships": []
+  }
+}
