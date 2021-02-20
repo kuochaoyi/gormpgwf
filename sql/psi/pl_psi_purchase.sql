@@ -16,12 +16,14 @@ $$ LANGUAGE plpgsql;
 -- SELECT public.quantity_add('01159a58-eb2e-40e1-8f70-119b9a249c7a'::UUID, 50);
 
 -- 單號+1 20200214001
-CREATE OR REPLACE FUNCTION p_order_no_new() 
-    RETURNS varchar
-AS $$
+CREATE OR REPLACE FUNCTION p_order_no_new()
+    RETURNS text
+    LANGUAGE 'plpgsql'
+
+AS $BODY$
 DECLARE
-    perfix_data varchar;
-    v varchar;
+    perfix_data text;
+    v text;
 	i int8;
 BEGIN
     SELECT INTO perfix_data to_char(CURRENT_DATE, 'YYYYMMDD');
@@ -32,26 +34,32 @@ BEGIN
 		v = to_char(CURRENT_DATE, 'YYYYMMDD001');
 		-- RAISE NOTICE '2 %', v;
 		RETURN v;
+		-- RAISE NOTICE '{order_no, %}', v;
+		-- v = '{order_no, ' || v || '}';
+		--RAISE NOTICE 'v %', v;
+		-- RETURN json_object(v::text[]);
     END IF;
 
 	i = v::int8 + 1;
-	v = i::varchar;
-	-- RAISE NOTICE '3 %',v;
-	RETURN v;
+	v = i::text;
+	-- v = '{order_no, ' || v || '}';
+	-- RAISE NOTICE 'v %', v;
+	-- RETURN json_object(v::text[]);
+    RETURN v;
 END;
-$$ LANGUAGE plpgsql;
+$BODY$;
 
 -- 新增進貨單記錄
 CREATE OR REPLACE FUNCTION p_insert(IN in_array text[])
-    RETURNS varchar
+    RETURNS text
 AS $$
 DECLARE
     t text[];
-	order_v varchar;
+	pno_new text;
 	t1 uuid;
 	t2 integer;
 BEGIN
-	SELECT INTO order_v p_order_no_new();
+	SELECT INTO pno_new p_order_no_new();
     FOREACH t SLICE 1 IN ARRAY in_array LOOP
         -- raise notice 't: %', t[1];
 		-- raise notice 'b: %, %', t[1], t[2];
@@ -59,15 +67,14 @@ BEGIN
 		t2 = t[2]::integer;
 		INSERT INTO psi_p_logs(order_id, product_id, quantity, unit_price)
 	        -- VALUES (t[1], t2, t3, t[4]::numeric);
-			VALUES (order_v, t1, t2, t[3]::numeric);
+			VALUES (pno_new, t1, t2, t[3]::numeric);
 		-- INSERT INTO psi_p_logs (order_id, quantity) 
 			-- VALUES (t[2], t[3]::integer);
 		PERFORM p_quantity_add(t1, t2);
     END LOOP;
-    RETURN order_v;
+    RETURN pno_new;
 END;
 $$ LANGUAGE plpgsql;
-
 
 -- TODO: exception.
 
